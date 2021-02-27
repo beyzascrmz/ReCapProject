@@ -1,5 +1,6 @@
 ﻿using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
+using Entity.Concrete;
 using System;
 
 namespace ConsoleUI
@@ -8,9 +9,25 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-             CarTest();
+            // CarTest();
+            // ColorTest()        
 
-           // ColorTest();
+
+
+            NewMethod();
+
+        }
+
+        private static void NewMethod()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            foreach (var rental in rentalManager.GetAll().Data)
+            {
+                Console.WriteLine("Araç kiralayanlar: " + rental.RentDate + " " + rental.ReturnDate);
+            }
+
+            Rental rental1 = new Rental { Id = 7, RentId = 7, CarId = 7, CustomerId = 7, RentDate = "25.01.2021", ReturnDate = "27.01.2021" };
+            Console.WriteLine(rentalManager.Add(rental1).Message);
 
         }
 
